@@ -3,22 +3,18 @@ import './App.css'
 
 function App() {
 
-  // 🛒 CARRINHO COM LOCALSTORAGE
   const [cart, setCart] = React.useState(() => {
     const saved = localStorage.getItem("cart")
     return saved ? JSON.parse(saved) : []
   })
 
-  // 🪟 MODAL
   const [modalAberto, setModalAberto] = React.useState(false)
 
-  // 📩 FORMULÁRIO
   const [nome, setNome] = React.useState("")
   const [email, setEmail] = React.useState("")
   const [mensagem, setMensagem] = React.useState("")
   const [erros, setErros] = React.useState({})
 
-  // 🍕 PIZZAS
   const pizzas = [
     {
       id: 1,
@@ -43,26 +39,21 @@ function App() {
     }
   ]
 
-  // ➕ ADICIONAR
   function adicionarPizza(pizza) {
     setCart([...cart, pizza])
   }
 
-  // ❌ REMOVER
   function removerPizza(index) {
     const novoCarrinho = cart.filter((_, i) => i !== index)
     setCart(novoCarrinho)
   }
 
-  // 🧮 TOTAL
   const total = cart.reduce((acc, item) => acc + item.preco, 0)
 
-  // 💾 LOCALSTORAGE SALVAR
   React.useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart))
   }, [cart])
 
-  // 📩 VALIDAR FORMULÁRIO
   function validarFormulario(e) {
     e.preventDefault()
 
@@ -94,7 +85,6 @@ function App() {
 
   return (
     <>
-      {/* HEADER */}
       <header>
         <h1>Pizzaria</h1>
 
@@ -102,15 +92,13 @@ function App() {
           <ul>
             <li><a href="#">Home</a></li>
             <li><a href="#">Menu</a></li>
-            <li><a href="#">Contato</a></li>
+            <li><a href="#contato">Contato</a></li>
           </ul>
         </nav>
       </header>
 
-      {/* MAIN */}
       <main>
 
-        {/* MENU */}
         <section>
           <h2>Menu</h2>
 
@@ -128,7 +116,6 @@ function App() {
           ))}
         </section>
 
-        {/* CARRINHO */}
         <section>
           <h2>Carrinho</h2>
 
@@ -156,7 +143,6 @@ function App() {
 
       </main>
 
-      {/* MODAL */}
       {modalAberto && (
         <div className="modal">
           <div className="modal-box">
@@ -169,7 +155,7 @@ function App() {
               </p>
             ))}
 
-            <h3>Total: R$ {total}</h3>
+            <h2>Total: R$ {total}</h2>
             <p>Quantidade: {cart.length}</p>
 
             <button onClick={() => {
@@ -187,8 +173,7 @@ function App() {
         </div>
       )}
 
-      {/* CONTATO */}
-      <section>
+      <section id="contato">
         <h2>Contato</h2>
 
         <form onSubmit={validarFormulario}>
@@ -221,7 +206,6 @@ function App() {
         </form>
       </section>
 
-      {/* FOOTER */}
       <footer>
         <p>© 2023 Pizzeria Name</p>
       </footer>
