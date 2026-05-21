@@ -29,7 +29,10 @@ function App() {
     }
   ]
 
-  const [cart, setCart] = React.useState([])
+  const [cart, setCart] = React.useState(() => {
+  const saved = localStorage.getItem("cart")
+  return saved ? JSON.parse(saved) : []
+})
   const [modalAberto, setModalAberto] = React.useState(false)
 
   function adicionarPizza(pizza) {
@@ -42,6 +45,9 @@ function App() {
   }
 
   const total = cart.reduce((acc, item) => acc + item.preco, 0)
+  React.useEffect(() => {
+  localStorage.setItem("cart", JSON.stringify(cart))
+}, [cart])
   return (
     <>
       <header>
