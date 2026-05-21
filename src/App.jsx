@@ -10,9 +10,12 @@ function App() {
 
   const [modalAberto, setModalAberto] = React.useState(false)
 
-  const [nome, setNome] = React.useState("")
-  const [email, setEmail] = React.useState("")
-  const [mensagem, setMensagem] = React.useState("")
+  const [form, setForm] = React.useState({
+    nome: "",
+    email: "",
+    mensagem: ""
+  })
+
   const [erros, setErros] = React.useState({})
 
   const pizzas = [
@@ -54,22 +57,26 @@ function App() {
     localStorage.setItem("cart", JSON.stringify(cart))
   }, [cart])
 
+  function handleChange(e) {
+    setForm({ ...form, [e.target.name]: e.target.value })
+  }
+
   function validarFormulario(e) {
     e.preventDefault()
 
     let errosTemp = {}
 
-    if (!nome) errosTemp.nome = "Nome obrigatório"
+    if (!form.nome) errosTemp.nome = "Nome obrigatório"
 
-    if (!email) {
+    if (!form.email) {
       errosTemp.email = "E-mail obrigatório"
-    } else if (!/\S+@\S+\.\S+/.test(email)) {
+    } else if (!/\S+@\S+\.\S+/.test(form.email)) {
       errosTemp.email = "E-mail inválido"
     }
 
-    if (!mensagem) {
+    if (!form.mensagem) {
       errosTemp.mensagem = "Mensagem obrigatória"
-    } else if (mensagem.length < 10) {
+    } else if (form.mensagem.length < 10) {
       errosTemp.mensagem = "Mínimo 10 caracteres"
     }
 
@@ -77,9 +84,7 @@ function App() {
 
     if (Object.keys(errosTemp).length === 0) {
       alert("Mensagem enviada com sucesso!")
-      setNome("")
-      setEmail("")
-      setMensagem("")
+      setForm({ nome: "", email: "", mensagem: "" })
     }
   }
 
@@ -155,7 +160,7 @@ function App() {
               </p>
             ))}
 
-            <h2>Total: R$ {total}</h2>
+            <h3>Total: R$ {total}</h3>
             <p>Quantidade: {cart.length}</p>
 
             <button onClick={() => {
@@ -179,25 +184,26 @@ function App() {
         <form onSubmit={validarFormulario}>
 
           <input
-            type="text"
+            name="nome"
             placeholder="Nome"
-            value={nome}
-            onChange={(e) => setNome(e.target.value)}
+            value={form.nome}
+            onChange={handleChange}
           />
           {erros.nome && <p>{erros.nome}</p>}
 
           <input
-            type="text"
+            name="email"
             placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={form.email}
+            onChange={handleChange}
           />
           {erros.email && <p>{erros.email}</p>}
 
           <textarea
+            name="mensagem"
             placeholder="Mensagem"
-            value={mensagem}
-            onChange={(e) => setMensagem(e.target.value)}
+            value={form.mensagem}
+            onChange={handleChange}
           />
           {erros.mensagem && <p>{erros.mensagem}</p>}
 
