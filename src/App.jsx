@@ -30,6 +30,7 @@ function App() {
   ]
 
   const [cart, setCart] = React.useState([])
+  const [modalAberto, setModalAberto] = React.useState(false)
 
   function adicionarPizza(pizza) {
     setCart([...cart, pizza])
@@ -113,10 +114,42 @@ function App() {
   }
 
   <h2>Total: R$ {total}</h2>
+  <button onClick={() => setModalAberto(true)}>
+  Finalizar Pedido
+</button>
 
 </section>
 
       </main>
+      {modalAberto && (
+  <div className="modal">
+    <div className="modal-box">
+
+      <h2>Resumo do Pedido</h2>
+
+      {cart.map((item, index) => (
+        <p key={index}>
+          {item.nome} - R$ {item.preco}
+        </p>
+      ))}
+
+      <h3>Total: R$ {total}</h3>
+      <p>Quantidade: {cart.length}</p>
+
+      <button onClick={() => {
+        alert("Pedido confirmado!")
+        setModalAberto(false)
+      }}>
+        Confirmar
+      </button>
+
+      <button onClick={() => setModalAberto(false)}>
+        Fechar
+      </button>
+
+    </div>
+  </div>
+)}
 
       <footer>
         <p>© 2023 Pizzeria Name</p>
