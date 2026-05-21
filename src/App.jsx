@@ -66,14 +66,21 @@ function App() {
 
     let errosTemp = {}
 
-    if (!form.nome) errosTemp.nome = "Nome obrigatório"
+    // nome sem números
+    if (!form.nome) {
+      errosTemp.nome = "Nome obrigatório"
+    } else if (!/^[A-Za-zÀ-ÿ\s]+$/.test(form.nome)) {
+      errosTemp.nome = "Nome inválido (sem números)"
+    }
 
+    // email mais forte
     if (!form.email) {
       errosTemp.email = "E-mail obrigatório"
-    } else if (!/\S+@\S+\.\S+/.test(form.email)) {
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
       errosTemp.email = "E-mail inválido"
     }
 
+    // mensagem
     if (!form.mensagem) {
       errosTemp.mensagem = "Mensagem obrigatória"
     } else if (form.mensagem.length < 10) {
@@ -160,7 +167,7 @@ function App() {
               </p>
             ))}
 
-            <h3>Total: R$ {total}</h3>
+            <h2>Total: R$ {total}</h2>
             <p>Quantidade: {cart.length}</p>
 
             <button onClick={() => {
