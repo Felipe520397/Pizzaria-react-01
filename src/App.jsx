@@ -66,21 +66,18 @@ function App() {
 
     let errosTemp = {}
 
-    // nome sem números
     if (!form.nome) {
       errosTemp.nome = "Nome obrigatório"
     } else if (!/^[A-Za-zÀ-ÿ\s]+$/.test(form.nome)) {
       errosTemp.nome = "Nome inválido (sem números)"
     }
 
-    // email mais forte
     if (!form.email) {
       errosTemp.email = "E-mail obrigatório"
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
       errosTemp.email = "E-mail inválido"
     }
 
-    // mensagem
     if (!form.mensagem) {
       errosTemp.mensagem = "Mensagem obrigatória"
     } else if (form.mensagem.length < 10) {
