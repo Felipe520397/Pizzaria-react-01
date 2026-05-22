@@ -76,8 +76,8 @@ button:hover {
 
 /* FOOTER */
 footer {
-    background-color: #c0bebe;
-    color: white;
+    background-color: #7a7a7a;
+    color: rgb(0, 0, 0);
     text-align: center;
     padding: 10px;
 }
@@ -94,7 +94,7 @@ footer {
 }
 
 .modal-box {
-    background: white;
+    background: rgb(0, 0, 0);
     padding: 20px;
     border-radius: 10px;
     width: 320px;
