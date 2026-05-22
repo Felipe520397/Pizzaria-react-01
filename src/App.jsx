@@ -217,7 +217,7 @@ function App() {
       </section>
 
       <footer>
-        <p>© 2023 Pizzeria Name</p>
+        <p>© 2023 Pizzeria Felipe</p>
       </footer>
     </>
   )
